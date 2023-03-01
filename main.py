@@ -9,27 +9,28 @@ def pil_to_surface(pil_image):
     ).convert()
 
 
-def cut_image(image_name: str, x_num) -> list[pygame.surface.Surface]:
-    from itertools import product
+def cut_image(image_name: str, x_splits) -> list[pygame.surface.Surface]:
     from PIL import Image
 
     img = Image.open(image_name)
     image_sequences = []
-    pieces_width = img.width / x_num
-    num_height_splits = int(img.height / pieces_width)
-    pieces_height = img.height / num_height_splits
+    pieces_width = img.width / x_splits
+    y_splits = int(img.height / pieces_width) - 1
+    pieces_height = img.height / y_splits
 
-    grid = product(range(0, x_num), range(0, num_height_splits))
-    for i, j in grid:
+    total_pieces = x_splits * y_splits
+    for i in range(total_pieces):
+        x_index = i % x_splits
+        y_index = i // y_splits
         box = (
-            i * pieces_width,
-            j * pieces_height,
-            (i + 1) * pieces_width,
-            (j + 1) * pieces_height,
+            x_index * pieces_width,
+            y_index * pieces_height,
+            (x_index + 1) * pieces_width,
+            (y_index + 1) * pieces_height,
         )
         part = img.crop(box)
-        image_sequences.append(pil_to_surface(part))
-    return image_sequences, (pieces_width, pieces_height)
+        image_sequences.append((pil_to_surface(part), box))
+    return image_sequences
 
 
 if __name__ == "__main__":
@@ -40,16 +41,15 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((picrect.width, picrect.height))
 
     black = 0, 0, 0
-    image_sequences, (pieces_width, pieces_height) = cut_image(IMG_name, X_splits)
+    image_sequences = cut_image(IMG_name, X_splits)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
 
         screen.fill(black)
-        for i, s in enumerate(image_sequences):
-            point = i / X_splits * pieces_height, i % X_splits + pieces_width
-            area = point[0], point[1], point[0] + pieces_width, point[1] + pieces_height
-            screen.blit(s, area)
+        for image, box in image_sequences:
+            screen.blit(image, box)
+            screen
 
         pygame.display.flip()
