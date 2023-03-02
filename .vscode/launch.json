@@ -21,7 +21,7 @@
             "env": {
                 "PYTHONPATH": "${workspaceFolder}"
             }
-        }
+        },
         {
             "name": "Debug current file",
             "type": "python",
