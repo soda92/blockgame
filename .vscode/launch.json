@@ -5,12 +5,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "pygame",
+            "name": "Python: Module",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
-            "console": "integratedTerminal",
+            "module": "blockgame",
             "justMyCode": true
+        },
+        {
+            "name": "Lines demo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/blockgame/demos/lines.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        }
+        {
+            "name": "Debug current file",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
         }
     ]
 }

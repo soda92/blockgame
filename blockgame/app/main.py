@@ -1,10 +1,10 @@
 import sys
 import pygame
 
-import tools
-import config
+from . import tools
+from . import config
 
-if __name__ == "__main__":
+def main():
     pygame.init()
     picrect = pygame.image.load(config.IMG_Path).get_rect()
     screen = pygame.display.set_mode((picrect.width, picrect.height))
