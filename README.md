@@ -1,5 +1,5 @@
 # blockgame
-sliding block game
+sliding block game (work in progress)
 
 ## Run
 
