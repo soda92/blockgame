@@ -1,2 +1,4 @@
 pygame
-Pillow
+Pillow # image processing
+ipykernel # execute jupyter notebooks
+black # formatting code
