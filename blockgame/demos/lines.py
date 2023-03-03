@@ -1,6 +1,6 @@
 from blockgame.app import config
 
-IMG = config.IMG_Dir.joinpath("2.jfif")
+IMG = config.IMG_Dir.joinpath("2.png")
 
 import pygame
 
